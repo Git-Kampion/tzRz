@@ -82,20 +82,21 @@ int OnCalculate(const int rates_total,
       
         for(int i = limit-1; i >= 0; i--)
         {
-         if (i >= MathMin(12800-1, rates_total-1-50)) continue; //omit some old rates to prevent "Array out of range" or slow calculation   
+         if (i >= MathMin(12800-1, rates_total-1-50)) continue; //omit some old rates to prevent "Array out of range" or slow calculation    //&& iHigh(NULL,PERIOD_M5,mainx-1) > iHigh(NULL,PERIOD_M5,mainx)&& iHigh(NULL,PERIOD_M5,mainx-1) > iHigh(NULL,PERIOD_M5,mainx-2)
        
              datetime M5 = iTime(NULL, PERIOD_M15, iBarShift(Symbol(), PERIOD_M15, Time[i+1]));
               int mainx = iBarShift(NULL,PERIOD_M5,M5);
                 int lwostCi ;
-             if (LastActionTime != M5)
+             if (LastActionTime != M5 && iHigh(NULL,PERIOD_M15,i-1) >= 1.0)
                  {
                    if(iHigh(NULL,PERIOD_M15,i+2) > iHigh(NULL,PERIOD_M15,i+3) && iHigh(NULL,PERIOD_M15,i+2) < iHigh(NULL,PERIOD_M15,i+4) && iHigh(NULL,PERIOD_M15,i+2) > iHigh(NULL,PERIOD_M15,i+1))
                      {
-                       if(iLow(NULL,PERIOD_M5,mainx -2) < iLow(NULL,PERIOD_M5,mainx-1) && iLow(NULL,PERIOD_M5,mainx-1) > iLow(NULL,PERIOD_M5,mainx)&& iHigh(NULL,PERIOD_M5,mainx-1) > iHigh(NULL,PERIOD_M5,mainx)&& iHigh(NULL,PERIOD_M5,mainx-1) > iHigh(NULL,PERIOD_M5,mainx-2))
+                    
+                       if(iLow(NULL,PERIOD_M5,mainx) < iLow(NULL,PERIOD_M5,mainx+1) && iLow(NULL,PERIOD_M5,mainx) > iLow(NULL,PERIOD_M5,mainx+2))
                         {
                         envtn1++;
+                        
                          Buffer2[i+1] = iLow(NULL,PERIOD_M15,i+1);
-      
                         }  
                      
                       
