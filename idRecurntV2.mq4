@@ -94,12 +94,26 @@ int OnCalculate(const int rates_total,
                     
                        if(iLow(NULL,PERIOD_M5,mainx) < iLow(NULL,PERIOD_M5,mainx+1) && iLow(NULL,PERIOD_M5,mainx) > iLow(NULL,PERIOD_M5,mainx+2))
                         {
-                        envtn1++;
-                        
-                         Buffer2[i+1] = iLow(NULL,PERIOD_M15,i+1);
-                        }  
-                     
-                      
+                           datetime M15 = iTime(NULL, PERIOD_M15, iBarShift(Symbol(), PERIOD_M15, Time[i+2]));
+                        int main5x = iBarShift(NULL,PERIOD_M5,M15);
+                        int index = 2;
+                        for(int i=1;i<=index;i++)
+                          {
+                           if(iHigh(NULL,PERIOD_M5,main5x) > iHigh(NULL,PERIOD_M5,main5x-i))
+                             {
+                              
+                             }
+                             else
+                               {
+                                main5x = main5x -i;
+                               }
+                          }
+                          if(main5xFindH(main5x) > 6)
+                            {
+                                envtn1++;                        
+                               Buffer2[i+1] = iLow(NULL,PERIOD_M15,i+1);
+                            }                     
+                        }                                             
                      }
                  }
           
@@ -160,4 +174,21 @@ int OnCalculate(const int rates_total,
 //--- return value of prev_calculated for next call
    return(rates_total);
   }
+  
+  int main5xFindH(int main)
+  {
+ int b = 0;
+  for(int i=0;i<=b;i++)
+    {
+     if(iHigh(NULL,PERIOD_M5,main) >iHigh(NULL,PERIOD_M5,main+i))
+       {
+        b++;
+       }
+       else
+         {
+          break;
+         }
+    }
+  return b;
+  } 
 //+------------------------------------------------------------------+
