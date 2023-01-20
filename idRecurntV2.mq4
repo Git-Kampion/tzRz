@@ -82,81 +82,32 @@ int OnCalculate(const int rates_total,
       
         for(int i = limit-1; i >= 0; i--)
         {
-         if (i >= MathMin(4800-1, rates_total-1-50)) continue; //omit some old rates to prevent "Array out of range" or slow calculation   
+         if (i >= MathMin(8800-1, rates_total-1-50)) continue; //omit some old rates to prevent "Array out of range" or slow calculation   
        
-             datetime M5 = iTime(NULL, PERIOD_M15, iBarShift(Symbol(), PERIOD_M15, Time[i+1]));
-              int mainx = iBarShift(NULL,PERIOD_M5,M5);
-                int lwostCi ;
-             if (LastActionTime != M5)
+           datetime M5 = iTime(NULL, PERIOD_M15, iBarShift(Symbol(), PERIOD_M15, Time[i+1]));
+           int mainx = iBarShift(NULL,PERIOD_M5,M5);
+          if (LastActionTime != M5)
                  {
-                    if(iHigh(NULL,PERIOD_M15,i+1) < iHigh(NULL,PERIOD_M15,i+2))
-                     {
-                       if(iLow(NULL,PERIOD_M5,mainx - 2) < iLow(NULL,PERIOD_M5,mainx-1) && iLow(NULL,PERIOD_M5,mainx-2) > iLow(NULL,PERIOD_M5,mainx ))
-                        {
-                        envtn1++;
-                         Buffer2[i+1] = iLow(NULL,PERIOD_M15,i+1);
-      
-                        }  
-                     
-                      
-                     }
-                 }
-          
-                   
-                            
-            Comment("Repaints: " + envtn1 + "\n Non: " + evnt2 );
-         /*
-          datetime M5 = iTime(NULL, PERIOD_M5, iBarShift(Symbol(), PERIOD_M5, Time[i]));
-             datetime M5 = iTime(NULL, PERIOD_M15, iBarShift(Symbol(), PERIOD_M15, Time[i+1]));
-              int mainx = iBarShift(NULL,PERIOD_M5,M5);
-                int lwostCi ;
-             if (LastActionTime != M5)
-           {
-       
-                int mainx = iBarShift(NULL,PERIOD_M5,M15);
-                int lwostCi ;
-           if (LastActionTime != M5)
-           {
-            LastActionTime = M5;
-            
-                if(iHigh(NULL,PERIOD_M5,mainx) > iHigh(NULL,PERIOD_M5,mainx-1) && iHigh(NULL,PERIOD_M5,mainx) > iHigh(NULL,PERIOD_M5,mainx +1))
-                  {
-                  
-                   //  Buffer1[i+1] = High[i+1];
-                  }
-                         
-               if(iLow(NULL,PERIOD_M5,mainx) < iLow(NULL,PERIOD_M5,mainx-1)&& iLow(NULL,PERIOD_M5,mainx)< iLow(NULL,PERIOD_M5,mainx +1 )&& iLow(NULL,PERIOD_M5,mainx)> iLow(NULL,PERIOD_M5,mainx+2))
-                  {
-                           
-                  }
-           if(High[i+1] > High[i+2] && High[i+1] < High[i+3])
-              {
-               datetime M15 = iTime(NULL, PERIOD_M15, iBarShift(Symbol(), PERIOD_M15, Time[i+1]));
-                int mainx = iBarShift(NULL,PERIOD_M5,M15);
-                int lwostCi ;
-                for(int i=0;i<1;i++)
-                  {
-                if(iHigh(NULL,PERIOD_M5,mainx) < iHigh(NULL,PERIOD_M5,mainx-i))
-                  {
-                   lwostCi = mainx -i;
-                  }
-                  else
-                    {
-                     
-                    }   
-                  }
-                
-              }
-                   /*  if(iHigh(NULL,PERIOD_M5,mainx) > iHigh(NULL,PERIOD_M5,mainx-1) && iHigh(NULL,PERIOD_M5,mainx) > iHigh(NULL,PERIOD_M5,mainx +1) && iHigh(NULL,PERIOD_M5,mainx)< iHigh(NULL,PERIOD_M5,mainx+2))
+                  LastActionTime = M5;
+               if(High[i+1] < High[i+2])
+                   {
+                         if(iHigh(NULL,PERIOD_M5,mainx) > iHigh(NULL,PERIOD_M5,mainx+1) && iHigh(NULL,PERIOD_M5,mainx) < iHigh(NULL,PERIOD_M5,mainx+2) && iHigh(NULL,PERIOD_M5,mainx-1) < iHigh(NULL,PERIOD_M5,mainx) && iLow(NULL,PERIOD_M5,mainx-1) < iLow(NULL,PERIOD_M5,mainx) && iLow(NULL,PERIOD_M5,mainx-1) > iLow(NULL,PERIOD_M5,mainx+1))
                               {
-                            
-                              }
-                              */
-           
+                                    {
+                                   // envtn1++;
+                                     Buffer2[i+1] = Low[i+1];
+                  
+                                    }  
+                            }        
+                  }                           
+            Comment("Repaints: " + envtn1 + "\n Non: " + evnt2 );
+
            }
          
         
 //--- return value of prev_calculated for next call
-   return(rates_total);
+    
+   }
+    return(rates_total);
   }
 //+------------------------------------------------------------------+
