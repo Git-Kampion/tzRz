@@ -89,15 +89,17 @@ int OnCalculate(const int rates_total,
                 int lwostCi ;
              if (LastActionTime != M5)
                  {
-                    if(iHigh(NULL,PERIOD_M15,i+2) > iHigh(NULL,PERIOD_M15,i+3) && iHigh(NULL,PERIOD_M15,i+2) < iHigh(NULL,PERIOD_M15,i+4))
+                    if(iHigh(NULL,PERIOD_M15,i+2) > iHigh(NULL,PERIOD_M15,i+3) && iHigh(NULL,PERIOD_M15,i+2) < iHigh(NULL,PERIOD_M15,i+4) && iHigh(NULL,PERIOD_M15,i+2) > iHigh(NULL,PERIOD_M15,i+1))
                      {
-                       if(iLow(NULL,PERIOD_M5,mainx ) < iLow(NULL,PERIOD_M5,mainx+1) && iLow(NULL,PERIOD_M5,mainx) > iLow(NULL,PERIOD_M5,mainx+2))
+                      if(iHigh(NULL,PERIOD_M5,mainx -1) > iHigh(NULL,PERIOD_M5,mainx) && iHigh(NULL,PERIOD_M5,mainx -1) > iHigh(NULL,PERIOD_M5,mainx-2))
+                      {
+                       if(iLow(NULL,PERIOD_M5,mainx -2) < iLow(NULL,PERIOD_M5,mainx-1) && iLow(NULL,PERIOD_M5,mainx-2) > iLow(NULL,PERIOD_M5,mainx) )
                         {
                         envtn1++;
                          Buffer2[i+1] = iLow(NULL,PERIOD_M15,i+1);
       
                         }  
-                     
+                      } 
                       
                      }
                  }
